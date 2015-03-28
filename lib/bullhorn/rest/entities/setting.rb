@@ -6,7 +6,7 @@ module Setting
   extend Base
 
   def settings(names = [])
-    names = names.empty? ? '*' : names.join(',')
+    names = names.empty? ? '' : names.join(',')
     path = "settings/#{names}"
     res = conn.get path
     Hashie::Mash.new JSON.parse(res.body)
