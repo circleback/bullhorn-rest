@@ -34,6 +34,7 @@ class Client
   include Bullhorn::Rest::Entities::PlacementCommission
   include Bullhorn::Rest::Entities::Resume
   include Bullhorn::Rest::Entities::Sendout
+  include Bullhorn::Rest::Entities::Setting
   include Bullhorn::Rest::Entities::Skill
   include Bullhorn::Rest::Entities::Specialty
   include Bullhorn::Rest::Entities::State
