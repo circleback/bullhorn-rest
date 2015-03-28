@@ -8,7 +8,7 @@ module Setting
   def settings(names = [])
     names = names.empty? ? '*' : names.join(',')
     path = "settings/#{names}"
-    res = conn.get path, params
+    res = conn.get path
     Hashie::Mash.new JSON.parse(res.body)
   end
 end
