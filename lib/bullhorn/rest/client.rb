@@ -34,6 +34,7 @@ class Client
   include Bullhorn::Rest::Entities::PlacementCommission
   include Bullhorn::Rest::Entities::Resume
   include Bullhorn::Rest::Entities::Sendout
+  include Bullhorn::Rest::Entities::Setting  
   include Bullhorn::Rest::Entities::Skill
   include Bullhorn::Rest::Entities::Specialty
   include Bullhorn::Rest::Entities::State
@@ -58,21 +59,6 @@ class Client
       self.send "#{opt}=", options[opt] if options[opt]
     end
 
-  end
-
-  def parse_to_candidate(resume_text)
-      path = "resume/parseToCandidateViaJson?format=text"
-      encodedResume = {"resume" => resume_text}.to_json   
-      res = conn.post path, encodedResume
-
-     JSON.parse(res.body)
-  end 
-
-  def settings(names = [])
-    names = names.empty? ? '*' : names.join(',')
-    path = "settings/#{names}"
-    res = conn.get path, params
-    Hashie::Mash.new JSON.parse(res.body)
   end
 
 end
