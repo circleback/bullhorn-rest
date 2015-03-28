@@ -34,7 +34,6 @@ class Client
   include Bullhorn::Rest::Entities::PlacementCommission
   include Bullhorn::Rest::Entities::Resume
   include Bullhorn::Rest::Entities::Sendout
-  include Bullhorn::Rest::Entities::Setting
   include Bullhorn::Rest::Entities::Skill
   include Bullhorn::Rest::Entities::Specialty
   include Bullhorn::Rest::Entities::State
@@ -69,6 +68,12 @@ class Client
      JSON.parse(res.body)
   end 
 
+  def settings(names = [])
+    names = names.empty? ? '*' : names.join(',')
+    path = "settings/#{names}"
+    res = conn.get path, params
+    Hashie::Mash.new JSON.parse(res.body)
+  end
 
 end
 
