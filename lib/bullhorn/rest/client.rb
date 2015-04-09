@@ -25,6 +25,7 @@ class Client
   include Bullhorn::Rest::Entities::CorporationDepartment
   include Bullhorn::Rest::Entities::Country
   include Bullhorn::Rest::Entities::CustomAction
+  include Bullhorn::Rest::Entities::FastFind  
   include Bullhorn::Rest::Entities::JobOrder
   include Bullhorn::Rest::Entities::JobSubmission
   include Bullhorn::Rest::Entities::Note
