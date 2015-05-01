@@ -7,8 +7,15 @@ module Option
 
   def option(option_type, value='*', options={})    
     params = {count: '300'}.merge(options)
-    path = "options/#{option_type}", params
-    res = conn.get path
+    path = "options/#{option_type}"
+    res = conn.get path, params
+    Hashie::Mash.new JSON.parse(res.body)
+  end
+
+  def options(options = {})
+    params = {count: '300'}.merge(options)
+    path = "options"
+    res = conn.get path, params
     Hashie::Mash.new JSON.parse(res.body)
   end
 end
