@@ -72,13 +72,13 @@ module Base
         attach_next_page obj, options, path, conn
       end
 
-      alias_method plural, "department_#{plural}"
-    else
-      # Don't see an "all" entities api call. Instead we
-      # use a criteria that is always true
-      define_method(plural) do |options={}|
-        send "query_#{plural}", where: "id IS NOT NULL"
-      end
+      # alias_method plural, "department_#{plural}"
+    end
+
+    # Don't see an "all" entities api call. Instead we
+    # use a criteria that is always true
+    define_method(plural) do |options={}|
+      send "query_#{plural}", where: "id IS NOT NULL"
     end
 
     define_method("search_#{plural}") do |options={}|
