@@ -103,7 +103,7 @@ module Base
       if assoc = options.delete(:association)
         path += "/#{assoc}"
       end
-      res = conn.get path, params
+      res = @conn.get path, params
       Hashie::Mash.new JSON.parse(res.body)
     end
 
@@ -111,19 +111,19 @@ module Base
 
       define_method("create_#{entity}") do |attributes={}|
         path = "entity/#{name}"
-        res = conn.put path, attributes
+        res = @conn.put path, attributes
         Hashie::Mash.new JSON.parse(res.body)
       end
 
       define_method("update_#{entity}") do |id, attributes={}|
         path = "entity/#{name}/#{id}"
-        res = conn.post path, attributes
+        res = @conn.post path, attributes
         Hashie::Mash.new JSON.parse(res.body)
       end
 
       define_method("delete_#{entity}") do |id|
         path = "entity/#{name}/#{id}"
-        res = conn.delete path
+        res = @conn.delete path
         Hashie::Mash.new JSON.parse(res.body)
       end
 
