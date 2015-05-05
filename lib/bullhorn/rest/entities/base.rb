@@ -111,21 +111,13 @@ module Base
 
       define_method("create_#{entity}") do |attributes={}|
         path = "entity/#{name}"
-        res = @conn.put do |req|
-          req.url path
-          req.headers['Content-Type'] = 'application/json'
-          req.body = attributes
-        end
+        res = @conn.put path, attributes.to_json, :content_type => 'application/json'
         Hashie::Mash.new JSON.parse(res.body)
       end
 
       define_method("update_#{entity}") do |id, attributes={}|
         path = "entity/#{name}/#{id}"
-        res = @conn.post do |req|
-          req.url path
-          req.headers['Content-Type'] = 'application/json'
-          req.body = attributes
-        end
+        res = @conn.post path, attributes.to_json, :content_type => 'application/json'
         Hashie::Mash.new JSON.parse(res.body)
       end
 
