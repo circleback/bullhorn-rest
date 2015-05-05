@@ -113,7 +113,7 @@ module Base
         path = "entity/#{name}"
         res = @conn.put do |req|
           req.url path
-          req..headers['Content-Type'] = 'application/json'
+          req.headers['Content-Type'] = 'application/json'
           req.body = attributes
         end
         Hashie::Mash.new JSON.parse(res.body)
