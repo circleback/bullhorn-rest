@@ -127,6 +127,20 @@ module Base
         Hashie::Mash.new JSON.parse(res.body)
       end
 
+      define_method("add_#{entity}_association") do |id, assoc_entity, values|
+        path = "entity/#{name}/#{id}/#{assoc_entity.pluralize}/#{Array.wrap(values).join(',')}"
+        res = @conn.put path
+        Hashie::Mash.new JSON.parse(res.body)
+      end
+
+      define_method("delete_#{entity}_association") do |id, assoc_entity, values|
+        path = "entity/#{name}/#{id}/#{assoc_entity.pluralize}/#{Array.wrap(values).join(',')}"
+        res = @conn.delete path
+        Hashie::Mash.new JSON.parse(res.body)
+      end
+
+      alias_method "remove_#{entity}_association", "delete_#{entity}_association"
+
     end
 
   end
