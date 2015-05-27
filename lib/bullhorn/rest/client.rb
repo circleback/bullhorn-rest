@@ -52,7 +52,7 @@ class Client
   def initialize(options = {})
 
     logger = Logger.new(STDOUT)
-    logger.level = Logger::INFO
+    logger.level = options[:log_level] || Logger::INFO
 
     @conn = Faraday.new do |f|
       f.use Middleware, self
