@@ -51,9 +51,12 @@ class Client
   # Initializes a new Bullhorn REST Client
   def initialize(options = {})
 
+    logger = Logger.new(STDOUT)
+    logger.level = Logger::INFO
+
     @conn = Faraday.new do |f|
       f.use Middleware, self
-      #f.response :logger 
+      f.response :logger, logger 
       f.adapter Faraday.default_adapter
     end
 
