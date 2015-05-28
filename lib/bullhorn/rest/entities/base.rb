@@ -127,19 +127,29 @@ module Base
         Hashie::Mash.new JSON.parse(res.body)
       end
 
+      define_method("get_#{entity}_association") do |id, assoc_entity, options = {}|
+        params = {fields: '*', count: 30}.merge(options)
+        path = "entity/#{name}/#{id}/#{assoc_entity.to_s.pluralize}"
+        res = @conn.get path, params
+        Hashie::Mash.new JSON.parse(res.body)
+      end
+      alias_method "get_#{entity}_associations", "get_#{entity}_association"
+
       define_method("add_#{entity}_association") do |id, assoc_entity, values|
-        path = "entity/#{name}/#{id}/#{assoc_entity.pluralize}/#{Array.wrap(values).join(',')}"
+        path = "entity/#{name}/#{id}/#{assoc_entity.to_s.pluralize}/#{Array.wrap(values).join(',')}"
         res = @conn.put path
         Hashie::Mash.new JSON.parse(res.body)
       end
+      alias_method "add_#{entity}_associations", "add_#{entity}_association"
 
       define_method("delete_#{entity}_association") do |id, assoc_entity, values|
-        path = "entity/#{name}/#{id}/#{assoc_entity.pluralize}/#{Array.wrap(values).join(',')}"
+        path = "entity/#{name}/#{id}/#{assoc_entity.to_s.pluralize}/#{Array.wrap(values).join(',')}"
         res = @conn.delete path
         Hashie::Mash.new JSON.parse(res.body)
       end
-
+      alias_method "delete_#{entity}_associations", "delete_#{entity}_association"
       alias_method "remove_#{entity}_association", "delete_#{entity}_association"
+      alias_method "remove_#{entity}_associations", "delete_#{entity}_association"
 
     end
 
