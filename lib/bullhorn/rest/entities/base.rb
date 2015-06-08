@@ -121,7 +121,7 @@ module Base
         Hashie::Mash.new JSON.parse(res.body)
       end
 
-      define_method("mass_update_#{plural}") do |attributes={}|
+      define_method("mass_update_#{plural}") do |id, attributes={}|
         path = "massUpdate/entity/#{name}"
         res = conn.post path, attributes
         Hashie::Mash.new JSON.parse(res.body)
